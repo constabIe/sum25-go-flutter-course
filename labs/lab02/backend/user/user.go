@@ -26,35 +26,35 @@ var (
 
 // Validate checks if the user data is valid, returns an error for each invalid field
 func (u *User) Validate() error {
-	if !IsValidName(u.Name) {
+	if !isValidName(u.Name) {
 		return ErrInvalidName
 	}
 
-	if !IsValidEmail(u.Email) {
+	if !isValidEmail(u.Email) {
 		return ErrInvalidEmail
 	}
 
-	if !IsValidID(u.ID) {
+	if !isValidID(u.ID) {
 		return ErrInvalidId
 	}
 
 	return nil
 }
 
-// IsValidName checks if the name is valid, returns `false` if the name is empty or longer than 30 characters
-func IsValidName(name string) bool {
+// isValidName checks if the name is valid, returns `false` if the name is empty or longer than 30 characters
+func isValidName(name string) bool {
 	lenName := len(name)
 	return 1 <= lenName && lenName <= 30
 }
 
-// IsValidEmail checks if the email format is valid
-func IsValidEmail(email string) bool {
+// isValidEmail checks if the email format is valid
+func isValidEmail(email string) bool {
 	_, err := mail.ParseAddress(email)
 	return err == nil
 }
 
-// IsValidID checks if the user ID is valid, returns `false` if an ID is empty
-func IsValidID(id string) bool {
+// isValidID checks if the user ID is valid, returns `false` if an ID is empty
+func isValidID(id string) bool {
 	return len(id) != 0
 }
 
