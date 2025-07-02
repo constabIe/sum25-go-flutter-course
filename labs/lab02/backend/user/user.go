@@ -3,7 +3,14 @@ package user
 import (
 	"context"
 	"errors"
+	"net/mail"
 	"sync"
+)
+
+var (
+	ErrInvalidName  = errors.New("invalid name: must be between 1 and 30 characters")
+	ErrInvalidAge   = errors.New("invalid age: must be between 0 and 150")
+	ErrInvalidEmail = errors.New("invalid email format")
 )
 
 // User represents a chat user
@@ -15,10 +22,38 @@ type User struct {
 	ID    string
 }
 
-// Validate checks if the user data is valid
+// Validate checks if the user data is valid, returns an error for each invalid field
 func (u *User) Validate() error {
-	// TODO: Validate name, email, id
+	if !IsValidName(u.Name) {
+		return ErrInvalidName
+	}
+
+	if !IsValidAge(u.Age) {
+		return ErrInvalidAge
+	}
+
+	if !IsValidEmail(u.Email) {
+		return ErrInvalidEmail
+	}
+
 	return nil
+}
+
+// IsValidEmail checks if the email format is valid
+func IsValidEmail(email string) bool {
+	_, err := mail.ParseAddress(email)
+	return err == nil
+}
+
+// IsValidName checks if the name is valid, returns false if the name is empty or longer than 30 characters
+func IsValidName(name string) bool {
+	lenName := len(name)
+	return 1 <= lenName && lenName <= 30
+}
+
+// IsValidAge checks if the age is valid, returns false if the age is not between 0 and 150
+func IsValidAge(age int) bool {
+	return 0 <= age && age <= 150
 }
 
 // UserManager manages users
