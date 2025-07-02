@@ -58,6 +58,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 16),
@@ -92,12 +93,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     if (value == null || value.length < 6) {
                       return 'Password must be at least 6 characters';
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: _submitForm,
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
               ],
             ),
