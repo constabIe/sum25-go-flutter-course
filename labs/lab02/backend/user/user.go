@@ -8,7 +8,6 @@ import (
 )
 
 // User represents a chat user
-// TODO: Add more fields if needed
 type User struct {
 	Name  string
 	Email string
@@ -65,7 +64,6 @@ type UserManager struct {
 	ctx   context.Context
 	users map[string]User // userID -> User
 	mutex sync.RWMutex    // Protects users map
-	// TODO: Add more fields if needed
 }
 
 // NewUserManager creates a new UserManager
